@@ -6,9 +6,12 @@ import {
 } from "@heroicons/react/solid";
 import { useDispatch } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
+import { toast } from "react-toast";
 
 import { filter_reminders } from "../../redux/reminderReducers";
 import { Button } from ".";
+
+const colors = ["#FA461E", "#F9C200", "#71B650"];
 
 const HeadingMenu = () => {
   const dispatch = useDispatch();
@@ -19,8 +22,30 @@ const HeadingMenu = () => {
 
   const filterHandler = useCallback(() => {
     dispatch(filter_reminders(currentFilter)).then((res) => {
-      if (res.meta.requestStatus === "fulfilled")
+      if (res.meta.requestStatus === "fulfilled") {
+        let statusText = "";
+
+        switch (currentFilter) {
+          case 0:
+            statusText = "Pending";
+            break;
+          case 1:
+            statusText = "On Going";
+            break;
+          case 2:
+            statusText = "Done";
+            break;
+          default:
+            statusText = "Pending";
+            break;
+        }
+
+        if (currentFilter !== 3)
+          toast.info(`Filtered by ${statusText}`, {
+            backgroundColor: colors[currentFilter],
+          });
         setCurrentFilter((prev) => (prev === 3 ? 0 : prev + 1));
+      }
     });
   }, [currentFilter, dispatch]);
 

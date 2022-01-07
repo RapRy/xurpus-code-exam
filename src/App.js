@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { ToastContainer } from "react-toast";
 import "./App.css";
 
 import { Home, Create, Update } from "./components";
@@ -19,6 +20,7 @@ function App() {
           <Route path="/:id" element={<Update />} />
         </Routes>
       </div>
+      <ToastContainer delay={2000} position="bottom-right" />
     </BrowserRouter>
   );
 }

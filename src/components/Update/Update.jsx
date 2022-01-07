@@ -3,8 +3,9 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import moment from "moment";
 import { RefreshIcon } from "@heroicons/react/solid";
-import API from "../../api";
+import { toast } from "react-toast";
 
+import API from "../../api";
 import { Heading, InputText, InputDate, InputStatus, Button } from "../global";
 import { fetch_single_reminder } from "../../redux/reminderReducers";
 
@@ -94,6 +95,7 @@ const Update = () => {
       );
 
       if (res.status === 200) {
+        toast.success(`${fields.title} Updated`);
         navigate("/");
       }
     }

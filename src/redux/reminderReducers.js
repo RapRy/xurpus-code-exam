@@ -65,6 +65,11 @@ export const reminderSlice = createSlice({
     reminders: [],
     selected: {},
   },
+  reducers: {
+    update_status: (state, action) => {
+      state.reminders = action.payload;
+    },
+  },
   extraReducers: {
     [fetch_reminders.pending]: (state) => {
       state.status = "loading";
@@ -120,5 +125,7 @@ export const reminderSlice = createSlice({
     },
   },
 });
+
+export const { update_status } = reminderSlice.actions;
 
 export default reminderSlice.reducer;

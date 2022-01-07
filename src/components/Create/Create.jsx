@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { PlusCircleIcon } from "@heroicons/react/solid";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toast";
 import uuid from "react-uuid";
 
 import { Heading, InputText, InputDate, InputStatus, Button } from "../global";
@@ -78,6 +79,7 @@ const Create = () => {
       );
 
       if (res.status === 201) {
+        toast.success(`${fields.title} added`);
         navigate("/");
       }
     }

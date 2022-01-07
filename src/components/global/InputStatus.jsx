@@ -14,7 +14,7 @@ const InputStatus = ({ name, error, value, fields, setFields }) => {
     <div className="mb-4 bg-white pr-4 rounded-md">
       <select
         name={name}
-        defaultValue={value}
+        value={value}
         onChange={handleChange}
         className="bg-white rounded-md py-2 px-4 w-full text-base text-black1 font-sans font-normal"
       >
