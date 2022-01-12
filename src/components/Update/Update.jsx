@@ -50,6 +50,7 @@ const Update = () => {
       fields.status === initFields.current.status &&
       fields.alarm === initFields.current.alarm
     ) {
+      toast.warn("Please make changes before you update the reminder");
       return;
     }
 
@@ -86,8 +87,13 @@ const Update = () => {
           break;
       }
 
-      const dateForAlarm = new Date().toISOString().split("T").shift();
-      const newAlarm = moment(`${dateForAlarm} ${fields.alarm}`).toDate();
+      let dateForAlarm = "";
+      let newAlarm = "";
+
+      if (fields.alarm !== "" || fields.alarm === null) {
+        dateForAlarm = new Date().toISOString().split("T").shift();
+        newAlarm = moment(`${dateForAlarm} ${fields.alarm}`).toDate();
+      }
 
       const newReminder = {
         title: fields.title,
@@ -116,7 +122,7 @@ const Update = () => {
       const { title, date, status, alarm } = res.payload;
       setFields({
         title,
-        alarm: moment(alarm).format("H:m"),
+        alarm: moment(alarm).format("HH:mm"),
         date: {
           created: moment.utc(date.created).format("YYYY-MM-DD"),
           done: date.done,
@@ -126,7 +132,7 @@ const Update = () => {
 
       initFields.current = {
         title,
-        alarm: moment(alarm).format("H:m"),
+        alarm: moment(alarm).format("HH:mm"),
         date: {
           created: moment.utc(date.created).format("YYYY-MM-DD"),
           done: date.done,

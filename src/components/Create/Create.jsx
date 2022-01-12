@@ -70,8 +70,13 @@ const Create = () => {
       }
 
       const dateCreated = moment.utc(fields.date.created);
-      const dateForAlarm = new Date().toISOString().split("T").shift();
-      const newAlarm = moment(`${dateForAlarm} ${fields.alarm}`).toDate();
+      let dateForAlarm = "";
+      let newAlarm = "";
+
+      if (fields.alarm !== "" || fields.alarm === null) {
+        dateForAlarm = new Date().toISOString().split("T").shift();
+        newAlarm = moment(`${dateForAlarm} ${fields.alarm}`).toDate();
+      }
 
       const newReminder = {
         id: uuid(),

@@ -16,6 +16,7 @@ const colorsHex = ["#FA461E", "#F9C200", "#71B650"];
 
 const HeadingMenu = () => {
   const dispatch = useDispatch();
+
   let location = useLocation();
 
   const [currentFilter, setCurrentFilter] = useState(0);

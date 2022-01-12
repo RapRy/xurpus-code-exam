@@ -1,4 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+
 import API from "../api";
 
 export const fetch_reminders = createAsyncThunk(
@@ -82,7 +83,7 @@ export const reminderSlice = createSlice({
       state.status = "failed";
     },
     [filter_reminders.pending]: (state) => {
-      state.status = "filtering";
+      state.status = "loading";
     },
     [filter_reminders.fulfilled]: (state, action) => {
       state.reminders = action.payload;
@@ -114,7 +115,7 @@ export const reminderSlice = createSlice({
       state.status = "failed";
     },
     [search_reminder.pending]: (state) => {
-      state.status = "loading";
+      state.status = "status";
     },
     [search_reminder.fulfilled]: (state, action) => {
       state.status = "idle";
