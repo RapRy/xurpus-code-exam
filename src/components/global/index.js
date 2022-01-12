@@ -4,3 +4,4 @@ export { default as HeadingMenu } from "./HeadingMenu";
 export { default as InputText } from "./InputText";
 export { default as InputDate } from "./InputDate";
 export { default as InputStatus } from "./InputStatus";
+export { default as Loader } from "./Loader";

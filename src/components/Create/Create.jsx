@@ -3,6 +3,7 @@ import { PlusCircleIcon } from "@heroicons/react/solid";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toast";
 import uuid from "react-uuid";
+import moment from "moment";
 
 import { Heading, InputText, InputDate, InputStatus, Button } from "../global";
 import API from "../../api";
@@ -10,13 +11,15 @@ import API from "../../api";
 const Create = () => {
   const [fields, setFields] = useState({
     title: "",
-    date: "",
+    date: { created: "", done: "" },
     status: 0,
+    alarm: "",
   });
   const [errors, setErrors] = useState({
     title: "",
     date: "",
     status: "",
+    alarm: "",
   });
 
   const navigate = useNavigate();
@@ -33,13 +36,13 @@ const Create = () => {
   const submitHandle = async (e) => {
     e.preventDefault();
 
-    if (fields.title === "" || fields.date === "") {
+    if (fields.title === "" || fields.date.created === "") {
       let errorMessages = { title: "", date: "" };
       if (fields.title === "") {
         errorMessages = { ...errorMessages, title: "Field is required" };
       }
 
-      if (fields.date === "") {
+      if (fields.date.created === "") {
         errorMessages = { ...errorMessages, date: "Field is required" };
       }
 
@@ -48,7 +51,7 @@ const Create = () => {
       return;
     }
 
-    if (fields.title !== "" || fields.date !== "") {
+    if (fields.title !== "" || fields.date.created !== "") {
       let statusText = "";
 
       switch (fields.status) {
@@ -66,11 +69,16 @@ const Create = () => {
           break;
       }
 
+      const dateCreated = moment.utc(fields.date.created);
+      const dateForAlarm = new Date().toISOString().split("T").shift();
+      const newAlarm = moment(`${dateForAlarm} ${fields.alarm}`).toDate();
+
       const newReminder = {
         id: uuid(),
         title: fields.title,
+        alarm: newAlarm,
         status: { code: fields.status, text: statusText },
-        date: new Date(fields.date),
+        date: { created: dateCreated, done: "" },
       };
 
       const res = await API.post(
@@ -96,9 +104,18 @@ const Create = () => {
           event={handleTextChange}
         />
         <InputDate
+          type="date"
           name="date"
           error={errors.date}
           value={fields.date}
+          setFields={setFields}
+          fields={fields}
+        />
+        <InputDate
+          type="time"
+          name="alarm"
+          error={errors.alarm}
+          value={fields.alarm}
           setFields={setFields}
           fields={fields}
         />

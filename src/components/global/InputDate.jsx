@@ -1,11 +1,15 @@
 import React from "react";
 
-const InputDate = ({ name, error, value, setFields, fields }) => {
+const InputDate = ({ type, name, error, value, setFields, fields }) => {
   const handleChange = (e) => {
     let value = e.target.value;
     let name = e.target.name;
 
-    let newFields = { ...fields, [name]: value };
+    let newFields = {
+      ...fields,
+      [name]:
+        type === "date" ? { created: value, done: fields.date.done } : value,
+    };
 
     setFields(newFields);
   };
@@ -13,7 +17,7 @@ const InputDate = ({ name, error, value, setFields, fields }) => {
   return (
     <div className="mb-4">
       <input
-        type="date"
+        type={type}
         name={name}
         placeholder={name}
         defaultValue={value || ""}

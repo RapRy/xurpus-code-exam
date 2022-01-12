@@ -82,7 +82,7 @@ export const reminderSlice = createSlice({
       state.status = "failed";
     },
     [filter_reminders.pending]: (state) => {
-      state.status = "loading";
+      state.status = "filtering";
     },
     [filter_reminders.fulfilled]: (state, action) => {
       state.reminders = action.payload;

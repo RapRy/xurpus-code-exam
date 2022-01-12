@@ -9,3 +9,56 @@ body {
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.loader {
+  border-top-color: #333333;
+  -webkit-animation: spinner 1.5s linear infinite;
+  animation: spinner 1.5s linear infinite;
+}
+
+.alarm-buzzed {
+  -webkit-animation: alarm 1.5s linear infinite;
+  animation: alarm 1.5s linear infinite;
+}
+
+@-webkit-keyframes alarm {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes alarm {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes spinner {
+  0% {
+    -webkit-transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+@keyframes spinner {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

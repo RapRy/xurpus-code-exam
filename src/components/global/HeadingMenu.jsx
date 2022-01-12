@@ -11,7 +11,8 @@ import { toast } from "react-toast";
 import { filter_reminders } from "../../redux/reminderReducers";
 import { Button } from ".";
 
-const colors = ["#FA461E", "#F9C200", "#71B650"];
+const colors = ["text-primary1", "text-primary3", "text-primary2"];
+const colorsHex = ["#FA461E", "#F9C200", "#71B650"];
 
 const HeadingMenu = () => {
   const dispatch = useDispatch();
@@ -42,7 +43,7 @@ const HeadingMenu = () => {
 
         if (currentFilter !== 3)
           toast.info(`Filtered by ${statusText}`, {
-            backgroundColor: colors[currentFilter],
+            backgroundColor: colorsHex[currentFilter],
           });
         setCurrentFilter((prev) => (prev === 3 ? 0 : prev + 1));
       }
@@ -76,8 +77,18 @@ const HeadingMenu = () => {
           <Button
             type="button"
             title="Filter"
-            icon={<FilterIcon className="h-5 w-5 text-black1" />}
-            textColor="text-black1"
+            icon={
+              <FilterIcon
+                className={`h-5 w-5 ${
+                  currentFilter === 0
+                    ? "text-black1"
+                    : colors[currentFilter - 1]
+                }`}
+              />
+            }
+            textColor={
+              currentFilter === 0 ? "text-black1" : colors[currentFilter - 1]
+            }
             hasBg={false}
             event={filterHandler}
           />

@@ -1,58 +1,30 @@
 {
   "reminders": [
     {
-      "id": "47372-3355-1efa-6d7a-b445371cd4ed",
-      "title": "yes updated",
-      "status": {
-        "code": 2,
-        "text": "Done"
-      },
-      "date": "2022-01-11T00:00:00.000Z"
-    },
-    {
-      "id": "7a4aa8-6e08-cd37-6c23-28145aabe40c",
-      "title": "testing",
+      "id": "2a671a-6fd3-cbed-0a2-18f143cbdc56",
+      "title": "test",
+      "alarm": "2022-01-12T08:10:00.000Z",
       "status": {
         "code": 0,
         "text": "Pending"
       },
-      "date": "2022-01-11T00:00:00.000Z"
+      "date": {
+        "created": "2022-01-12T00:00:00.000Z",
+        "done": ""
+      }
     },
     {
-      "id": "5d451-44f0-3bb1-7038-4740ffd4f08",
-      "title": "yes 2",
+      "id": "8288ad5-42d5-0a52-2476-cf45520b01",
+      "title": "agaib",
+      "alarm": "2022-01-12T08:15:00.000Z",
       "status": {
-        "code": 1,
-        "text": "On Going"
+        "code": 0,
+        "text": "Pending"
       },
-      "date": "2022-01-18T00:00:00.000Z"
-    },
-    {
-      "id": "f33b811-486d-4db-1805-fcb3c7a834b",
-      "title": "done",
-      "status": {
-        "code": 2,
-        "text": "Done"
-      },
-      "date": "2022-01-14T00:00:00.000Z"
-    },
-    {
-      "id": "0f4bbae-e211-c83f-215b-4ce1d0f2eff1",
-      "title": "on going",
-      "status": {
-        "code": 1,
-        "text": "On Going"
-      },
-      "date": "2022-01-12T00:00:00.000Z"
-    },
-    {
-      "id": "4c7e048-abb-650a-abec-01545b720be",
-      "title": "new",
-      "status": {
-        "code": 2,
-        "text": "Done"
-      },
-      "date": "2022-01-12T00:00:00.000Z"
+      "date": {
+        "created": "2022-01-12T00:00:00.000Z",
+        "done": ""
+      }
     }
   ]
 }

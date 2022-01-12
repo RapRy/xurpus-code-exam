@@ -18,7 +18,8 @@ const Update = () => {
 
   const [fields, setFields] = useState({
     title: "",
-    date: "",
+    date: { created: "", done: "" },
+    alarm: "",
     status: 0,
   });
 
@@ -28,6 +29,7 @@ const Update = () => {
     title: "",
     date: "",
     status: "",
+    alarm: "",
   });
 
   const handleTextChange = (e) => {
@@ -44,19 +46,20 @@ const Update = () => {
 
     if (
       fields.title === initFields.current.title &&
-      fields.date === initFields.current.date &&
-      fields.status === initFields.current.status
+      fields.date.created === initFields.current.date.created &&
+      fields.status === initFields.current.status &&
+      fields.alarm === initFields.current.alarm
     ) {
       return;
     }
 
-    if (fields.title === "" || fields.date === "") {
+    if (fields.title === "" || fields.date.created === "") {
       let errorMessages = { title: "", date: "" };
       if (fields.title === "") {
         errorMessages = { ...errorMessages, title: "Field is required" };
       }
 
-      if (fields.date === "") {
+      if (fields.date.created === "") {
         errorMessages = { ...errorMessages, date: "Field is required" };
       }
 
@@ -65,7 +68,7 @@ const Update = () => {
       return;
     }
 
-    if (fields.title !== "" || fields.date !== "") {
+    if (fields.title !== "" || fields.date.created !== "") {
       let statusText = "";
 
       switch (fields.status) {
@@ -83,10 +86,17 @@ const Update = () => {
           break;
       }
 
+      const dateForAlarm = new Date().toISOString().split("T").shift();
+      const newAlarm = moment(`${dateForAlarm} ${fields.alarm}`).toDate();
+
       const newReminder = {
         title: fields.title,
         status: { code: fields.status, text: statusText },
-        date: new Date(fields.date),
+        alarm: newAlarm,
+        date: {
+          created: moment.utc(fields.date.created),
+          done: fields.date.done,
+        },
       };
 
       const res = await API.patch(
@@ -103,16 +113,24 @@ const Update = () => {
 
   useEffect(() => {
     dispatch(fetch_single_reminder(id)).then((res) => {
-      const { title, date, status } = res.payload;
+      const { title, date, status, alarm } = res.payload;
       setFields({
         title,
-        date: moment(date).format("YYYY-MM-DD"),
+        alarm: moment(alarm).format("H:m"),
+        date: {
+          created: moment.utc(date.created).format("YYYY-MM-DD"),
+          done: date.done,
+        },
         status: status.code,
       });
 
       initFields.current = {
         title,
-        date: moment(date).format("YYYY-MM-DD"),
+        alarm: moment(alarm).format("H:m"),
+        date: {
+          created: moment.utc(date.created).format("YYYY-MM-DD"),
+          done: date.done,
+        },
         status: status.code,
       };
     });
@@ -129,9 +147,18 @@ const Update = () => {
           event={handleTextChange}
         />
         <InputDate
+          type="date"
           name="date"
           error={errors.date}
-          value={fields.date}
+          value={fields.date.created}
+          setFields={setFields}
+          fields={fields}
+        />
+        <InputDate
+          type="time"
+          name="alarm"
+          error={errors.alarm}
+          value={fields.alarm}
           setFields={setFields}
           fields={fields}
         />

@@ -2,11 +2,11 @@ import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import { fetch_reminders, search_reminder } from "../../redux/reminderReducers";
-import { Heading, InputText } from "../global";
+import { Heading, InputText, Loader } from "../global";
 import Card from "../Card/Card";
 
 const Home = () => {
-  const { reminders } = useSelector((state) => state.reminder);
+  const { reminders, status } = useSelector((state) => state.reminder);
   const dispatch = useDispatch();
 
   const handleTextChange = (e) => {
@@ -18,6 +18,18 @@ const Home = () => {
   useEffect(() => {
     dispatch(fetch_reminders());
   }, [dispatch]);
+
+  if (status === "loading") {
+    return <Loader />;
+  }
+
+  if (status === "failed") {
+    return (
+      <p className="text-black1 font-sans text-base font-bold text-center mt-10">
+        Something went wrong, please refresh the page
+      </p>
+    );
+  }
 
   return (
     <>
@@ -38,6 +50,7 @@ const Home = () => {
               title={reminder.title}
               status={reminder.status}
               date={reminder.date}
+              alarm={reminder.alarm}
               id={reminder.id}
               ind={i}
             />
